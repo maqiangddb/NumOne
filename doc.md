@@ -14,7 +14,7 @@ data structure
 - name
 - description
 - latilongi
-- distruct
+- district
 
 json standard
 -------------
@@ -37,3 +37,19 @@ json standard
     }
 }
 ```
+
+interfaces
+----------
+
+url: /api
+
+parameters:
+
+- action
+- target
+
+...
+
+**example:**
+
+/api?action=get&target=shoplist&district=futian&count=10
