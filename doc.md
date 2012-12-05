@@ -11,10 +11,12 @@ data structure
 
 **shop**
 
-- name
-- description
-- latilongi
-- district
+- name 名称
+- description 详细描述
+- latilongi 经纬度
+- district 所在区域
+- average 人均消费
+- phone 电话
 
 json standard
 -------------
@@ -49,7 +51,10 @@ json standard
         "items": [
             {
                 "name": "xxx",
-                "description": "xxx"
+                "type": "专营门店",
+                "latilongi": "+40.6894-074.0447"
+                "average": 35,
+                "image": "data/shop/thumb/a.jpg"
                 // ...
             },
             // ...
