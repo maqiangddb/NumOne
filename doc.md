@@ -95,9 +95,11 @@ parameters:
 
 /api?action=get&target=shoplist&district=futian&count=10
 
-//request JSON in android
-// example
+request JSON in android
 
+example
+
+```java
 private static final REQUEST_URL = "bala bala";
 /*
 这个parameters是应用传过来的，所以里面已经设过action, target, district, count
@@ -165,5 +167,5 @@ public static String openUrl(String url, String method, Bundle params) {
     } catch (Exception e) {
 
     }
-
 }
+```
