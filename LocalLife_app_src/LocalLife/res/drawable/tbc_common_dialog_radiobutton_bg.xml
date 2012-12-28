@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="false" android:drawable="@drawable/tbc_common_dialog_radiobutton_nm" />
+    <item android:state_checked="true" android:drawable="@drawable/tbc_common_dialog_radiobutton_on" />
+</selector>

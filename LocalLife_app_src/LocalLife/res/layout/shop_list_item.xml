@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/group_selector"
+    >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dip"
+        >
+    <TextView
+        android:id="@+id/shop_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:scrollHorizontally="true"
+        android:text="This is Shop Name"
+        android:textColor="#ff000000"
+        android:textSize="20dip"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/shop_tele_num"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/shop_name"
+        android:layout_marginLeft="21dp"
+        android:text="Button"
+        android:focusable="false"
+        />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dip"
+        >
+    <ImageView
+        android:id="@+id/shop_picture"
+        android:layout_width="100dip"
+        android:layout_height="80dip"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:paddingRight="10dip"
+        android:layout_margin="4dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/loading_fail_4_3" />
+
+    <TextView
+        android:id="@+id/shop_average_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/shop_picture"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="4dip"
+        android:text="average percent"
+        />
+
+    <TextView
+        android:id="@+id/shop_average_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/shop_average_percent"
+        android:layout_marginLeft="4dip"
+        android:layout_marginTop="4dip"
+        android:text="average count"
+        />
+
+    <TextView
+        android:id="@+id/shop_price_per_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shop_average_percent"
+        android:layout_toRightOf="@id/shop_picture"
+        android:text="price per person"
+        />
+
+    <TextView
+        android:id="@+id/shop_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/shop_price_per_person"
+        android:layout_below="@id/shop_average_count"
+        android:layout_marginLeft="4dip"
+        android:text="distance"
+        />
+
+    <TextView
+        android:id="@+id/shop_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shop_price_per_person"
+        android:layout_toRightOf="@id/shop_picture"
+        android:text="type"
+        />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="drawable" name="drawable_test_blue">#ff0000ff</item>
+    <item type="drawable" name="drawable_res_list_divider">#ffa0a0a0</item>
+    <item type="drawable" name="drawable_white">#ffffffff</item>
+    <item type="drawable" name="drawable_black">#ff000000</item>
+    <item type="drawable" name="drawable_room_type_normal">#ffffffff</item>
+    <item type="drawable" name="drawable_room_type_pressed">#fff1d71d</item>
+    <item type="drawable" name="gray">#ff808080</item>
+    <item type="drawable" name="white">#ffffffff</item>
+    <item type="drawable" name="black">#ff000000</item>
+    <item type="drawable" name="red">#fff14144</item>
+    <item type="drawable" name="blue">#ff0000ff</item>
+</resources>

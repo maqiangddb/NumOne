@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="segmented_btn_text">
+        <item>Distance</item>
+        <item>Category</item>
+    </string-array>
+
+    <string-array name="segmented_btn_text_default">
+        <item>Distance</item>
+        <item>Category</item>
+    </string-array>
+    <string-array name="sort_string">
+        <item>按综合排序</item>
+        <item>按点评数排序</item>
+        <item>按好评排序</item>
+        <item>支持优惠的商户</item>
+    </string-array>
+    <string-array name="sort_show_string">
+        <item>综合</item>
+        <item>点评数</item>
+        <item>好评</item>
+        <item>优惠</item>
+    </string-array>
+    <string-array name="distance_array">
+        <item >500</item>
+        <item >1000</item>
+        <item >2000</item>
+        <item >5000</item>
+    </string-array>
+</resources>

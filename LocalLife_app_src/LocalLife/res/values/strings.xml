@@ -1,0 +1,61 @@
+<resources>
+
+    <string name="app_name">沃生活</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="btn_get_local_shop">Local Shop</string>
+    <string name="shop_list_label">商户列表</string>
+    <string name="shop_info_text">商户信息</string>
+    <string name="shop_comment_text">用户点评</string>
+    <string name="tel_btn_text">拨打电话</string>
+    <string name="msg_btn_text">发给朋友</string>
+    <string name="map_btn_text">查看地图</string>
+    <string name="group_buy_title_text">团购</string>
+    <string name="coupon_title_text">优惠</string>
+    <string name="introduce_text">推荐菜</string>
+    <string name="ext_info_text">网友印象</string>
+    <string name="tag_title_text">店铺标签</string>
+    <string name="info_title_text">附属信息</string>
+    <string name="shop_list_title_distance">附近</string>
+    <string name="big_category_list_title">商铺类型</string>
+    <string name="main_activity_title">主界面</string>
+    <string name="grid1_text">附近</string>
+    <string name="grid2_text">本地</string>
+    <string name="grid3_text">点评</string>
+    <string name="grid4_text">优惠券</string>
+    <string name="grid5_text">团购</string>
+    <string name="shop_list_activity_title">商铺列表</string>
+    <string name="category_list_title">子类型</string>
+    <string name="shop_detail_title">商铺详情</string>
+    <string name="item_good_comment_count_text">好评</string>
+    <string name="comment_count_text">人点评</string>
+    <string name="per_price_text">人均:</string>
+    <string name="select_province_title"/>
+    <string name="no_internet_connect_title">没有连上英特网</string>
+    <string name="no_location_provider_title">没有打开GPS位置服务</string>
+    <string name="dlg_no_internet_negative_btn_text">取消</string>
+    <string name="dlg_no_internet_msg">当前设备没有连接互联网。打开wifi，请点击“设置”。退出，请点击“取消”。</string>
+    <string name="dlg_no_internet_positive_btn_text">设置</string>
+    <string name="dlg_no_location_provider_msg">当前设备没有打开GPS位置服务。打开，请点击”设置“按钮。</string>
+    <string name="dlg_no_location_provider_nagetive_btn_text">手动选择位置</string>
+    <string name="dlg_no_location_provider_positive_btn_text">设置</string>
+    <string name="coupon_list_activity_title">优惠券列表</string>
+    <string name="coupon_detail_activity_title">优惠券详情</string>
+    <string name="group_buy_list_activity_title">团购列表</string>
+    <string name="group_buy_detail_activity_title">团购详情</string>
+    <string name="chose_province_title">选择一个省份</string>
+    <string name="chose_province_ok">确定</string>
+    <string name="chose_city_title">选择一个城市</string>
+    <string name="chose_city_ok">确定</string>
+    <string name="district_all">全部区域</string>
+    <string name="category_all">全部类型</string>
+    <string name="no_location_data_hint">无法获得位置信息！！</string>
+    <string name="shop_list_empty_text">没有商户信息</string>
+    <string name="coupon_list_empty_text">没有优惠券信息</string>
+    <string name="groupbuy_list_empty_text">没有团购信息</string>
+    <string name="groupbuy_list_activity_title">团购列表</string>
+    <string name="coupon_list_activity_title">优惠券列表</string>
+
+
+</resources>

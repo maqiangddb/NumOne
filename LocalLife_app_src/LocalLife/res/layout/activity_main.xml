@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent" >
+<LinearLayout
+    android:id="@+id/test_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:visibility="gone"
+    >
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="300dip"
+        >
+
+    <TextView
+        android:id="@+id/test_msg"
+        android:hint="Show the test result!"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
+    </ScrollView>
+    <Button
+        android:id="@+id/test_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
+        android:gravity="center"
+        android:text="Start"
+        android:layout_gravity="center_horizontal"
+        />
+    <Button
+        android:id="@+id/big_category_test"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Big Category"
+        />
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/main_grid"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:columnWidth="10dip"
+        android:horizontalSpacing="4dip"
+        android:numColumns="3"
+        android:visibility="visible"
+        ></GridView>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btn_local_shop"
+        android:text="@string/btn_get_local_shop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

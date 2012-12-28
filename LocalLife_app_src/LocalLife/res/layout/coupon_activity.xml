@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:id="@+id/couponInfoScrollView"
+    android:background="@drawable/app_background"
+    android:scrollbars="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/storeInfoLinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/tab_bar_bg"
+        >
+
+        <Button
+            android:id="@+id/shop_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/light_btn_selector"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="10dip"
+            android:text="@string/shop_info_text"
+            />
+        <Button
+            android:id="@+id/shop_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/light_btn_selector"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="20dip"
+            android:text="@string/shop_comment_text"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="200dip"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:layout_width="180dip"
+            android:layout_height="180dip"
+            android:src="@drawable/loading_big"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="adkjfijk,diijmdkjfidfdmfsdfadsfadfadfadfadfadfadfadfadsfadfadfadfadfadadsfa"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/height_dimen_spacing"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:layout_marginLeft="4dip"
+            android:text="现价："
+            android:textSize="17dip"
+            android:textColor="@color/color_gray_item"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="8dip"
+            android:gravity="center"
+            android:text="150"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dip"
+            android:text="tele_num"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+			<RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="8.0dip">
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/blank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_spacing"
+                android:layout_alignParentLeft="true" />
+            <TextView
+                android:textSize="20.0dip"
+                android:textStyle="bold"
+                android:textColor="@color/dark_gray"
+                android:gravity="center_vertical"
+                android:id="@+id/coupon_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0.0dip"
+                android:layout_marginTop="@dimen/marginTop_dimen_spacing"
+                android:text=""
+                android:layout_toRightOf="@id/blank" />
+            <TextView
+                android:textSize="17.0dip"
+                android:textColor="@color/color_gray_item"
+                android:gravity="center_vertical"
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_dimen_spacing"
+                android:text="现价"
+                android:lines="1"
+                android:layout_below="@id/coupon_info" />
+            <TextView
+                android:textSize="17.0dip"
+                android:textColor="@color/color_gray_item"
+                android:gravity="center_vertical"
+                android:id="@+id/price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_dimen_spacing"
+                android:text=""
+                android:lines="1"
+                android:layout_toRightOf="@id/price"
+                android:layout_alignBaseline="@id/price" />
+
+            <TextView
+                android:textSize="17.0dip"
+                android:textColor="@color/color_gray_item"
+                android:gravity="center_vertical"
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_dimen_spacing"
+                android:text="面值"
+                android:lines="1"
+                android:layout_below="@id/price"
+                 />
+            <TextView
+                android:textSize="17.0dip"
+                android:textColor="@color/color_gray_item"
+                android:gravity="center_vertical"
+                android:id="@+id/value_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_dimen_spacing"
+                android:text=""
+                android:lines="1"
+                android:layout_toRightOf="@id/value"
+                android:layout_alignBaseline="@id/value"
+                 />
+
+
+            <TextView
+                android:textSize="17.0dip"
+                android:textColor="@color/color_gray_item"
+                android:gravity="center_vertical"
+                android:id="@+id/usefull_life"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_dimen_spacing"
+                android:text="使用截止日期"
+                android:lines="1"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/value"
+                />
+            <TextView
+                android:textSize="17.0dip"
+                android:textColor="@color/color_gray_item"
+                android:gravity="center_vertical"
+                android:id="@+id/usefull_life_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_dimen_spacing"
+                android:text=""
+                android:lines="1"
+                android:layout_toRightOf="@id/usefull_life"
+                android:layout_alignBaseline="@id/usefull_life"
+                />
+
+        </RelativeLayout>
+
+
+   </LinearLayout>
+
+</ScrollView>

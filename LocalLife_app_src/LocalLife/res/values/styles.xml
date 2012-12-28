@@ -1,0 +1,20 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="android:Theme.Light" />
+    <style name="WindowTitleBackground" parent="@android:style/Theme">
+        <item name="android:background">@drawable/title_bg</item>
+
+    </style>
+    <style name="TitleTheme" parent="@android:style/Theme">
+        <item name="android:windowContentOverlay">@android:color/transparent</item>
+        <item name="android:windowTitleSize">46dip</item>
+        <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+    </style>
+    <style
+        name="CustomTitleStyle"
+        >
+		<item name="android:maxLines">1</item>
+		<item name="android:textColor">@color/color_black</item>
+    </style>
+
+</resources>
