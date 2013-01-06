@@ -13,11 +13,13 @@ import org.json.JSONException;
 
 import com.some.locallife.R;
 import com.some.locallife.data.LocalLife;
+import com.some.locallife.data.error.LocalException;
 import com.some.locallife.data.type.Category;
 import com.some.locallife.data.type.Group;
 import com.some.locallife.data.type.LocalType;
 import com.some.locallife.data.type.Shop;
 import com.some.locallife.ui.widget.ShopListAdapter;
+import com.some.locallife.util.TaskManager.BaseDataTask;
 import com.some.locallife.util.TaskManager.DoTask;
 import com.some.locallife.util.TaskManager.SetData;
 import com.some.locallife.util.Util;
@@ -52,12 +54,17 @@ public class NewShopListActivity extends LoadableListActivity implements Adapter
 	public static final String EXTRA_CATEGORY_IDS = "com.some.locallife.NewShopListActivity.EXTRA_CATEGORY_IDS";
 	public static final String EXTRA_DISTANCE = "com.some.locallife.NewShopListActivity.EXTRA_DISTANCE";
 	public static final String EXTRA_LOCATION = "com.some.locallife.NewShopListActivity.EXTRA_LOCATION";
+	public static final String EXTRA_IS_FAV = "com.some.locallife.NewShopListActivity.EXTRA_IS_FAV";
 	private StateHolder mStateHolder;
 	private SearchLocationObserver mSearchLocationObserver = new SearchLocationObserver();
 	private ViewGroup mLayoutEmpty;
 
 	private ShopListAdapter mListAdapter;
-	private boolean useLocation;
+	private boolean useLocation = false;
+	private boolean isFav = false;
+	private boolean isFavTaskRuned = false;
+	private BaseDataTask mFavShopsTask;
+
 	private String mDistance;
 
 /*
@@ -79,13 +86,6 @@ public class NewShopListActivity extends LoadableListActivity implements Adapter
 
 	@Override
 	protected void onCreate(Bundle bundle) {
-		super.onCreate(bundle);
-		//first of all, register receivers
-		this.mApp = (LocalLifeApplication) this.getApplication();
-		this.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.main_title);
-		TextView tv = (TextView) this.findViewById(R.id.titleName);
-		tv.setText(R.string.shop_list_activity_title);
-		//this.setTitle(R.string.shop_list_activity_title);
 		Object retained = this.getLastNonConfigurationInstance();
 		if(retained != null && retained instanceof StateHolder) {
 			this.mStateHolder = (StateHolder) retained;
@@ -105,13 +105,70 @@ public class NewShopListActivity extends LoadableListActivity implements Adapter
 							null, null);
 					this.mDistance = this.getIntent().getStringExtra(EXTRA_DISTANCE);
 					this.useLocation = true;
+				} else if (this.getIntent().hasExtra(EXTRA_IS_FAV)) {
+					this.useLocation = false;
+					this.isFav = true;
+
 				}
 		}
+
+		if(!this.isFav) {
+			requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		}
+		super.onCreate(bundle);
+		//first of all, register receivers
+		this.mApp = (LocalLifeApplication) this.getApplication();
+
+		if(!this.isFav) {
+		this.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.main_title);
+		TextView tv = (TextView) this.findViewById(R.id.titleName);
+		tv.setText(R.string.shop_list_activity_title);
+		} else {
+			this.setTheme(android.R.style.Theme_NoTitleBar);
+		}
+
 
 
 		this.mLayoutEmpty = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.shop_list_empty, null);
 		if(!this.mStateHolder.getIsRunningTask())
 		this.mStateHolder.startTaskShops(this, this.useLocation);
+		if(this.isFav) {
+			this.mFavShopsTask = this.mApp.getTaskManager().new BaseDataTask();
+			this.mFavShopsTask = this.mApp.getTaskManager().createTask(mFavShopsTask,
+					new DoTask() {
+
+						@Override
+						public LocalType doTask() {
+							// TODO Auto-generated method stub
+							NewShopListActivity.this.setLoadingView();
+							try {
+								return NewShopListActivity.this.mApp.getLocalLife().getFavShopList();
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (LocalException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							return null;
+						}},
+					new SetData() {
+
+						@Override
+						public void setData(LocalType data) {
+							// TODO Auto-generated method stub
+							NewShopListActivity.this.onShopsTaskComplete((Group<Shop>)data, null);
+						}});
+			if (this.mStateHolder.mFavShops == null) {
+				this.mFavShopsTask.execute();
+			}
+		}
 		this.ensureUi();
 		this.initSpinnerUI();
 	}
@@ -204,6 +261,7 @@ public class NewShopListActivity extends LoadableListActivity implements Adapter
 		// TODO Auto-generated method stub
 		((LocalLifeApplication)this.getApplication()).removeLocationUpdates(this.mSearchLocationObserver);
 		if (this.isFinishing()) {
+			this.mFavShopsTask.cancel(true);
 			this.mStateHolder.cancelTasks();
 			this.mListAdapter.removeObserver();
 		}
@@ -265,12 +323,14 @@ public class NewShopListActivity extends LoadableListActivity implements Adapter
 	private static class StateHolder {
 
 		Group<Shop> mShops;
+		Group<Shop> mFavShops;
 		String mCategoryId;
 
 		private boolean mFetchedOnce;
 		private boolean mIsRunningTask;
 
 		private TaskShops mTaskShops;
+		private BaseDataTask mFavShopsTask;
 
 		public StateHolder(String category, String bigCategory) {
 			this.mCategoryId = category;
@@ -294,6 +354,10 @@ public class NewShopListActivity extends LoadableListActivity implements Adapter
 			this.mTaskShops = new TaskShops(activity, useLocation);
 
 			this.mTaskShops.execute(this.mCategoryId);
+		}
+
+		public void startFavTaskShops() {
+
 		}
 
 		public void cancelTasks() {

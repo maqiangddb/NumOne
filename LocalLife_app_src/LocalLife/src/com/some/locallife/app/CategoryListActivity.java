@@ -7,6 +7,7 @@ import org.json.JSONException;
 
 import com.some.locallife.R;
 import com.some.locallife.data.LocalLife;
+import com.some.locallife.data.error.LocalException;
 import com.some.locallife.data.type.Category;
 import com.some.locallife.data.type.District;
 import com.some.locallife.data.type.Group;
@@ -197,7 +198,12 @@ public class CategoryListActivity extends ListActivity {
 			LocalLifeApplication localApp = (LocalLifeApplication) this.mContext.getApplicationContext();
 			LocalLife local = localApp.getLocalLife();
 			try {
-				return local.getCategory(this.mBigCategoryId);
+				try {
+					return local.getCategory(this.mBigCategoryId);
+				} catch (LocalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -211,6 +217,7 @@ public class CategoryListActivity extends ListActivity {
 				e.printStackTrace();
 				return null;
 			}
+			return null;
 		}
 
 	}

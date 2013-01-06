@@ -1,6 +1,7 @@
 package com.some.locallife.data.http;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,7 +10,9 @@ import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
+import org.apache.http.auth.AuthScope;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -32,6 +35,7 @@ import org.json.JSONException;
 
 import android.util.Log;
 
+import com.some.locallife.data.error.LocalException;
 import com.some.locallife.data.parse.Parser;
 import com.some.locallife.data.type.LocalType;
 import com.some.locallife.data.util.JSONUtils;
@@ -83,22 +87,38 @@ abstract public class AbstractHttpApi implements HttpApi {
 
 
 	public LocalType executeHttpRequest(HttpRequestBase httpRequest,
-		Parser<? extends LocalType> parser) throws ParseException, IOException, JSONException {
+		Parser<? extends LocalType> parser) throws ParseException, IOException, JSONException, LocalException {
 		Util.httpRequest("doHttpRequest:"+httpRequest.getURI());
+		Util.login("===1==="+this.mHttpClient.getCredentialsProvider().getCredentials(new AuthScope("numone.sinaapp.com", 80)));
+		Util.login("mHttpClient:"+mHttpClient);
 		HttpResponse response = executeHttpRequest(httpRequest);
 		Util.httpRequest("execute httpRequest: "+httpRequest.getURI());
 		int statusCode = response.getStatusLine().getStatusCode();
 		Util.httpRequest("response statusCode:"+statusCode);
+
 		switch(statusCode) {
 			case 200:
 				String content = EntityUtils.toString(response.getEntity());
 				Util.httpRequest("get json so good!!content: "+content);
 				return JSONUtils.consume(parser, content);
+			case 201:
+				String responsContent201 = EntityUtils.toString(response.getEntity());
+				return JSONUtils.consume(parser, responsContent201);
+			case 204:
+				String responsContent204 = EntityUtils.toString(response.getEntity());
+				return JSONUtils.consume(parser, responsContent204);
 			case 400:
+				String responsContent400 = EntityUtils.toString(response.getEntity());
+				return JSONUtils.consume(parser, responsContent400);
 
 			case 401:
+				Util.httpRequest("response:"+EntityUtils.toString(response.getEntity()));
+				throw new LocalException("Credentials Exception");
 
 			case 404:
+
+			case 406:
+
 
 			case 500:
 
@@ -163,7 +183,14 @@ abstract public class AbstractHttpApi implements HttpApi {
 	@Override
 	public HttpPost createHttpPost(String url, NameValuePair... nameValuePairs) {
 		// TODO Auto-generated method stub
-		return null;
+		HttpPost httpPost = new HttpPost(url+"?");
+		try {
+			httpPost.setEntity(new UrlEncodedFormEntity(this.stripNulls(nameValuePairs), HTTP.UTF_8));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return httpPost;
 	}
 
 

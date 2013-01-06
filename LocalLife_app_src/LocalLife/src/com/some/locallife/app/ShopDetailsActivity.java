@@ -8,11 +8,20 @@ import org.apache.http.ParseException;
 import org.json.JSONException;
 
 import com.some.locallife.R;
+import com.some.locallife.data.error.LocalException;
+import com.some.locallife.data.type.LocalType;
 import com.some.locallife.data.type.Shop;
 import com.some.locallife.util.RemoteResourceManager;
+import com.some.locallife.util.TabsUtil;
+import com.some.locallife.util.TaskManager.BaseDataTask;
+import com.some.locallife.util.TaskManager.DoTask;
+import com.some.locallife.util.TaskManager.SetData;
 import com.some.locallife.util.Util;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,14 +29,18 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
-public class ShopDetailsActivity extends Activity {
+public class ShopDetailsActivity extends TabActivity {
 
 	protected static final String EXTRA_SHOP_PARCEL = "com.some.locallife.app.ShopDetailsActivity.EXTRA_SHOP_PARCEL";
 
@@ -39,13 +52,36 @@ public class ShopDetailsActivity extends Activity {
 	private Handler mHandler;
 	private ViewHolder mViewHolder;
 
+	private static final int SHOP_DETAIL_TAB = 1;
+	private static final int COMMENTS_TAB = 2;
+
+	private TabHost mTabHost;
+	private LocalLifeApplication mApp;
+
+	private void initTabHost() {
+		if(this.mTabHost != null) {}
+		this.mTabHost = this.getTabHost();
+
+		//add shop detail tab
+		TabsUtil.addTab(mTabHost, this.getString(R.string.fav_shop_tab_title), null, SHOP_DETAIL_TAB, R.id.shop_detail_content);
+
+		//add comments tab
+		Intent commentsIntent = new Intent(this, CommentActivity.class);//FavShopActivity.class);
+		commentsIntent.putExtra(CommentActivity.EXTRA_IS_SHOP, true);
+		TabsUtil.addTab(mTabHost, this.getString(R.string.fav_shop_tab_title), null, COMMENTS_TAB, commentsIntent);
+
+		this.mTabHost.setCurrentTab(this.SHOP_DETAIL_TAB);
+
+	}
+
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		this.setContentView(R.layout.shop_activity_new);
+		this.mApp = (LocalLifeApplication) this.getApplication();
 
-
+		this.initTabHost();
 
 		Object retained = this.getLastNonConfigurationInstance();
 		if(retained != null) {
@@ -74,6 +110,88 @@ public class ShopDetailsActivity extends Activity {
 		tv.setText(R.string.shop_detail_title);
 		//this.setTitle(R.string.shop_detail_title);
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.shop_detail_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch(item.getItemId()) {
+    	case R.id.comment_item:
+    		return true;
+
+    	}
+		return super.onOptionsItemSelected(item);
+
+    }
+
+    BaseDataTask mCommentTask;
+
+    private void startCommentTask() {
+    	this.mCommentTask = this.mApp.getTaskManager().new BaseDataTask();
+    	this.mCommentTask = this.mApp.getTaskManager().createTask(mCommentTask,
+    			new DoTask() {
+
+					@Override
+					public LocalType doTask() {
+						// TODO Auto-generated method stub
+						String comment = ShopDetailsActivity.this.mCommentinput.getText().toString();
+						try {
+							return ShopDetailsActivity.this.mApp.getLocalLife().postShopComment(ShopDetailsActivity.this.mStateHolder.getShopId(), comment);
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (LocalException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						return null;
+					}},
+    			new SetData() {
+
+					@Override
+					public void setData(LocalType data) {
+						// TODO Auto-generated method stub
+
+					}});
+
+    }
+
+    private EditText mCommentinput;
+
+    private void doComment() {
+    	mCommentinput = new EditText(this);
+    	AlertDialog dialog = new AlertDialog.Builder(this)
+    		.setTitle(R.string.dlg_input_title)
+    		.setView(mCommentinput)
+    		.setPositiveButton(R.string.register_dlg_posi_btn_text, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					ShopDetailsActivity.this.startCommentTask();
+				}
+			})
+			.setNegativeButton(R.string.register_dlg_nega_btn_text, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+
+				}
+			})
+			.create();
+
+    }
 
 	@Override
 	public Object onRetainNonConfigurationInstance() {
@@ -237,7 +355,12 @@ public class ShopDetailsActivity extends Activity {
 		protected Shop doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			try {
-				return ((LocalLifeApplication)this.mActivity.getApplication()).getLocalLife().getShop(mShopId);
+				try {
+					return ((LocalLifeApplication)this.mActivity.getApplication()).getLocalLife().getShop(mShopId);
+				} catch (LocalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

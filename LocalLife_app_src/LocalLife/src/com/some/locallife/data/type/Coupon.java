@@ -79,6 +79,7 @@ public class Coupon implements LocalType, Parcelable {
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
 		// TODO Auto-generated method stub
+		out.writeString(this.id);
 		out.writeString(this.imageUrl);
 		out.writeString(this.lifeTime);
 		out.writeString(this.msg);
@@ -86,5 +87,34 @@ public class Coupon implements LocalType, Parcelable {
 		out.writeString(this.price);
 		out.writeString(this.teleNum);
 	}
+
+	public Coupon() {
+
+	}
+
+	private Coupon(Parcel in) {
+		this.id = in.readString();
+		this.imageUrl = in.readString();
+		this.lifeTime = in.readString();
+		this.msg = in.readString();
+		this.pageValue = in.readString();
+		this.price = in.readString();
+		this.teleNum = in.readString();
+	}
+
+	public static final Parcelable.Creator<Coupon> CREATOR = new Parcelable.Creator<Coupon>() {
+
+		@Override
+		public Coupon createFromParcel(Parcel in) {
+			// TODO Auto-generated method stub
+			return new Coupon(in);
+		}
+
+		@Override
+		public Coupon[] newArray(int size) {
+			// TODO Auto-generated method stub
+			return new Coupon[size];
+		}
+	};
 
 }

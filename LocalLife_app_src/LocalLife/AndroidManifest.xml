@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
 
     <application
         android:icon="@drawable/app_icon"
@@ -46,6 +47,12 @@
         <activity android:theme="@style/TitleTheme" android:name=".app.CouponDetailsActivity"></activity>
         <activity android:theme="@style/TitleTheme" android:name=".app.GroupBuyDetailActivity"></activity>
         <activity android:theme="@style/TitleTheme" android:name=".app.GroupBuyListActivity"></activity>
+        <activity android:name=".util.Logcat"></activity>
+        <activity android:theme="@style/TitleTheme" android:name=".app.LoginActivity"></activity>
+        <activity android:theme="@style/TitleTheme" android:name=".app.UserActivity"></activity>
+        <activity android:theme="@android:style/Theme.NoTitleBar" android:name=".app.FavShopActivity"></activity>
+        <activity android:theme="@android:style/Theme.NoTitleBar" android:name=".app.FavCouponActivity"></activity>
+        <activity android:theme="@android:style/Theme.NoTitleBar" android:name=".app.FavGroupBuyActivity"></activity>
 
     </application>
 

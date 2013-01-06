@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.some.locallife.data.LocalLife;
+import com.some.locallife.data.error.LocalException;
 import com.some.locallife.data.type.Category;
 import com.some.locallife.data.type.Group;
 import com.some.locallife.data.type.LocalType;
@@ -389,7 +390,12 @@ public class ShopListActivity extends LoadableListActivity {
 		public LocalType doTask() {
 			// TODO Auto-generated method stub
 			try {
-				return this.mApi.getShops(this.mCategoryId);
+				try {
+					return this.mApi.getShops(this.mCategoryId);
+				} catch (LocalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -426,7 +432,12 @@ public class ShopListActivity extends LoadableListActivity {
 		public LocalType doTask() {
 			// TODO Auto-generated method stub
 			try {
-				return this.mApi.getCategory(bigCategoryId);
+				try {
+					return this.mApi.getCategory(bigCategoryId);
+				} catch (LocalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -7,18 +7,31 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/storeInfoLinearLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
+	<TabWidget
+	    android:id="@android:id/tabs"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/tab_bar_bg"
+	    >
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/tab_bar_bg"
+        android:visibility="gone"
         >
 
         <Button
@@ -46,6 +59,22 @@
 
     </LinearLayout>
 
+	</TabWidget>
+
+	<FrameLayout
+	    android:id="@android:id/tabcontent"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:background="@drawable/app_background"
+	    >
+
+	    <LinearLayout
+	        android:id="@+id/coupon_detail_content"
+	        android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        >
+
     <LinearLayout
 
         android:layout_width="fill_parent"
@@ -54,6 +83,7 @@
         >
 
         <ImageView
+            android:id="@+id/coupon_image"
             android:layout_width="180dip"
             android:layout_height="180dip"
             android:src="@drawable/loading_big"
@@ -61,11 +91,7 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="adkjfijk,diijmdkjfidfdmfsdfadsfadfadfadfadfadfadfadfadsfadfadfadfadfadadsfa"
-        />
+
 
     <LinearLayout
         android:orientation="horizontal"
@@ -127,46 +153,70 @@
                 android:textSize="17.0dip"
                 android:textColor="@color/color_gray_item"
                 android:gravity="center_vertical"
-                android:id="@+id/price"
+                android:id="@+id/coupon_price"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_dimen_spacing"
+
                 android:text="现价"
                 android:lines="1"
                 android:layout_below="@id/coupon_info" />
+
+
             <TextView
                 android:textSize="17.0dip"
-                android:textColor="@color/color_gray_item"
+                android:textColor="#fffb6a1d"
                 android:gravity="center_vertical"
-                android:id="@+id/price_text"
+                android:id="@+id/coupon_price_text"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_dimen_spacing"
                 android:text=""
                 android:lines="1"
-                android:layout_toRightOf="@id/price"
-                android:layout_alignBaseline="@id/price" />
+                android:layout_toRightOf="@id/coupon_price"
+                android:layout_alignBaseline="@id/coupon_price"
+                />
+
+
+        <Button
+            android:id="@+id/coupon_tele_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_dimen_spacing"
+            android:text="82789550,222"
+            android:background="@drawable/login_button_selector"
+            android:focusable="false"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textStyle="bold"
+            android:textColor="@color/color_orange"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:shadowColor="#111111"
+            android:drawablePadding="8dip"
+            android:layout_alignBaseline="@id/coupon_price_text"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dip"
+            />
 
             <TextView
                 android:textSize="17.0dip"
                 android:textColor="@color/color_gray_item"
                 android:gravity="center_vertical"
-                android:id="@+id/value"
+                android:id="@+id/coupon_value"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_dimen_spacing"
                 android:text="面值"
                 android:lines="1"
-                android:layout_below="@id/price"
+                android:layout_below="@id/coupon_price"
                  />
             <TextView
                 android:textSize="17.0dip"
-                android:textColor="@color/color_gray_item"
+                android:textColor="#fffb6a1d"
                 android:gravity="center_vertical"
-                android:id="@+id/value_text"
+                android:id="@+id/coupon_value_text"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_dimen_spacing"
                 android:text=""
                 android:lines="1"
-                android:layout_toRightOf="@id/value"
-                android:layout_alignBaseline="@id/value"
+                android:layout_toRightOf="@id/coupon_value"
+                android:layout_alignBaseline="@id/coupon_value"
                  />
 
 
@@ -174,30 +224,31 @@
                 android:textSize="17.0dip"
                 android:textColor="@color/color_gray_item"
                 android:gravity="center_vertical"
-                android:id="@+id/usefull_life"
+                android:id="@+id/coupon_usefull_life"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_dimen_spacing"
                 android:text="使用截止日期"
                 android:lines="1"
                 android:layout_alignParentBottom="true"
-                android:layout_below="@id/value"
+                android:layout_below="@id/coupon_value"
                 />
             <TextView
                 android:textSize="17.0dip"
-                android:textColor="@color/color_gray_item"
+                android:textColor="#fffb6a1d"
                 android:gravity="center_vertical"
-                android:id="@+id/usefull_life_text"
+                android:id="@+id/coupon_usefull_life_text"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_dimen_spacing"
                 android:text=""
                 android:lines="1"
-                android:layout_toRightOf="@id/usefull_life"
-                android:layout_alignBaseline="@id/usefull_life"
+                android:layout_toRightOf="@id/coupon_usefull_life"
+                android:layout_alignBaseline="@id/coupon_usefull_life"
                 />
 
         </RelativeLayout>
 
-
+		</LinearLayout>
+	</FrameLayout>
    </LinearLayout>
-
+	</TabHost>
 </ScrollView>

@@ -6,7 +6,7 @@
   	xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/coupon_image"
         android:background="#ffff00ff"
         android:layout_width="90.0dip"
         android:layout_height="90.0dip"
@@ -17,29 +17,44 @@
     <TextView
         android:textSize="16.0dip"
         android:textColor="#ff353535"
-        android:id="@+id/description"
+        android:id="@+id/coupon_description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10.0dip"
         android:layout_marginTop="-5.0dip"
         android:text="coupon"
         android:maxLines="2"
-        android:layout_toRightOf="@id/image"
+        android:layout_toRightOf="@id/coupon_image"
         android:layout_alignParentTop="true"
         android:lineSpacingExtra="6.0dip" />
 
     <TextView
+
+
         android:textSize="17.0sp"
         android:textStyle="bold"
-        android:textColor="#fffb6a1d"
-        android:id="@+id/price"
+        android:textColor="@color/color_gray_item"
+        android:id="@+id/coupon_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10.0dip"
         android:layout_marginTop="5.0dip"
         android:text="price"
-        android:layout_toRightOf="@id/image"
-        android:layout_below="@id/description" />
+        android:layout_toRightOf="@id/coupon_image"
+        android:layout_below="@id/coupon_description" />
+
+            <TextView
+                android:textSize="17.0dip"
+                android:textColor="#fffb6a1d"
+                android:gravity="center_vertical"
+                android:id="@+id/coupon_price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_dimen_spacing"
+                android:text=""
+                android:lines="1"
+                android:layout_toRightOf="@id/coupon_price"
+                android:layout_alignBaseline="@id/coupon_price"
+                />
 
     <TextView
         android:gravity="center_vertical"
@@ -48,8 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10.0dip"
-        android:layout_toRightOf="@id/price"
-        android:layout_alignBaseline="@id/price" />
+        android:layout_toRightOf="@id/coupon_price_text"
+        android:layout_alignBaseline="@id/coupon_price_text"
+        />
 
     <TextView
         android:textSize="14.0dip"
@@ -59,10 +75,25 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10.0dip"
         android:layout_marginTop="10.0dip"
+        android:visibility="gone"
         android:text="sold"
         android:lines="1"
-        android:layout_toRightOf="@id/divider0"
-        android:layout_alignBaseline="@id/price" />
+        android:layout_toRightOf="@id/coupon_image"
+        android:layout_below="@id/coupon_price"
+        />
+
+            <TextView
+                android:textSize="17.0dip"
+                android:textColor="#fffb6a1d"
+                android:gravity="center_vertical"
+                android:id="@+id/coupon_price_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_dimen_spacing"
+                android:text=""
+                android:lines="1"
+                android:layout_toRightOf="@id/sold"
+                android:layout_alignBaseline="@id/sold"
+                />
 
     <TextView
         android:textSize="14.0sp"
@@ -72,7 +103,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6.0dip"
         android:text="credit"
-        android:layout_below="@id/price"
+        android:visibility="gone"
+        android:layout_below="@id/coupon_price"
         android:layout_alignParentRight="true" />
+
+        <Button
+            android:id="@+id/coupon_item_tele_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_dimen_spacing"
+            android:text="82789550,222"
+            android:background="@drawable/login_button_selector"
+            android:focusable="false"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textStyle="bold"
+            android:textColor="@color/color_orange"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:shadowColor="#111111"
+            android:drawablePadding="8dip"
+            android:layout_below="@id/coupon_price"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="6.0dip"
+            />
 
 </RelativeLayout>

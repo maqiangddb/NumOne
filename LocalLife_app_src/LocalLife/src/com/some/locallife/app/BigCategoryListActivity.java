@@ -7,6 +7,7 @@ import org.json.JSONException;
 
 import com.some.locallife.R;
 import com.some.locallife.data.LocalLife;
+import com.some.locallife.data.error.LocalException;
 import com.some.locallife.data.type.BigCategory;
 import com.some.locallife.data.type.Group;
 import com.some.locallife.data.type.LocalType;
@@ -191,7 +192,12 @@ public class BigCategoryListActivity extends ListActivity {
 			LocalLife local = localApp.getLocalLife();
 			try {
 				android.util.Log.i("MQ","TASK do task ok");
-				return local.getBigCategory();
+				try {
+					return local.getBigCategory();
+				} catch (LocalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -205,6 +211,7 @@ public class BigCategoryListActivity extends ListActivity {
 				e.printStackTrace();
 				return null;
 			}
+			return null;
 		}
 
 	}

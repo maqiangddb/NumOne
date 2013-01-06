@@ -11,12 +11,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.json.JSONException;
 
+import com.some.locallife.data.error.LocalException;
 import com.some.locallife.data.parse.Parser;
 import com.some.locallife.data.type.LocalType;
 
 public interface HttpApi {
 	abstract public LocalType doHttpRequest(HttpRequestBase httpRequest,
-			Parser<? extends LocalType> parser) throws ParseException, IOException, JSONException;
+			Parser<? extends LocalType> parser) throws ParseException, IOException, JSONException, LocalException;
 
 	abstract public String doHttpPost(String url, NameValuePair... nameValuePairs);
 

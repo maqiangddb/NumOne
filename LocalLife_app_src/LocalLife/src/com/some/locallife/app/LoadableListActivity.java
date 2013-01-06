@@ -32,7 +32,7 @@ public abstract class LoadableListActivity extends ListActivity implements Adapt
 	@Override
 	protected void onCreate (Bundle bundle) {
 		super.onCreate(bundle);
-		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		//requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		this.setContentView(R.layout.loadable_list_activity);
 
 		this.initSpinner();

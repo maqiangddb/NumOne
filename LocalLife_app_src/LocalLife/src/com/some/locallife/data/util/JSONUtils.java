@@ -18,10 +18,15 @@ public class JSONUtils {
 			if (json.has("apiVersion")) {
 				Util.log("apiVersion:"+json.get("apiVersion"));
 			}
+
 			if (json.has("data")) {
 				Util.log("parse data:"+json.get("data"));
 				return parser.parse((JSONObject) json.get("data"));
-			} else {
+			} else if (json.has("error")) {
+				Util.getData("parse error:"+json.get("error"));
+				return parser.parse((JSONObject)json.get("error"));
+			}
+			else {
 				throw new JSONException("no valueable data contained!!");
 			}
 			/*

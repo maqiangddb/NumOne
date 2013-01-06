@@ -588,6 +588,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int searchEditArea=0x7f0b002e;
         public static final int searchEditText=0x7f0b002f;
         public static final int sell_price=0x7f0b0026;
+        public static final int send_logcat_by_email=0x7f0b0082;
         public static final int shop=0x7f0b0077;
         public static final int shopName=0x7f0b0050;
         public static final int shop_average_count=0x7f0b0073;
@@ -658,6 +659,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_main=0x7f0a0000;
     }
     public static final class string {
+        public static final int acquiring_logcat_dialog_msg=0x7f080039;
         public static final int app_name=0x7f080000;
         public static final int big_category_list_title=0x7f080012;
         public static final int btn_get_local_shop=0x7f080004;
@@ -668,6 +670,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int chose_province_ok=0x7f08002d;
         public static final int chose_province_title=0x7f08002c;
         public static final int comment_count_text=0x7f08001d;
+        public static final int confirm_email_msg=0x7f080040;
+        public static final int confirm_email_negative_text=0x7f080042;
+        public static final int confirm_email_positive_text=0x7f080041;
+        public static final int confirm_email_title=0x7f08003f;
         public static final int coupon_detail_activity_title=0x7f080029;
         public static final int coupon_list_activity_title=0x7f080028;
         public static final int coupon_list_empty_text=0x7f080034;
@@ -694,15 +700,22 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int info_title_text=0x7f080010;
         public static final int introduce_text=0x7f08000d;
         public static final int item_good_comment_count_text=0x7f08001c;
+        public static final int logcat_error_msg=0x7f08003c;
+        public static final int logcat_error_title=0x7f08003b;
+        public static final int logcat_subject=0x7f080037;
+        public static final int logcat_succ_msg=0x7f08003e;
+        public static final int logcat_succ_title=0x7f08003d;
         public static final int main_activity_title=0x7f080013;
         public static final int map_btn_text=0x7f08000a;
         public static final int menu_settings=0x7f080002;
+        public static final int menu_title_send_by_email=0x7f08003a;
         public static final int msg_btn_text=0x7f080009;
         public static final int no_internet_connect_title=0x7f080020;
         public static final int no_location_data_hint=0x7f080032;
         public static final int no_location_provider_title=0x7f080021;
         public static final int per_price_text=0x7f08001e;
         public static final int select_province_title=0x7f08001f;
+        public static final int send_log_chooser_title=0x7f080038;
         public static final int shop_comment_text=0x7f080007;
         public static final int shop_detail_title=0x7f08001b;
         public static final int shop_info_text=0x7f080006;

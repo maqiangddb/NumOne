@@ -49,6 +49,13 @@
         android:visibility="visible"
         android:clickable="true"
         />
+    <LinearLayout
+        android:id="@+id/custom_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@android:id/empty"

@@ -14,9 +14,12 @@ import com.some.locallife.app.BigCategoryListActivity;
 import com.some.locallife.app.CouponListActivity;
 import com.some.locallife.app.GroupBuyListActivity;
 import com.some.locallife.app.LocalLifeApplication;
+import com.some.locallife.app.LoginActivity;
 import com.some.locallife.app.NewShopListActivity;
 import com.some.locallife.app.ShopListActivity;
+import com.some.locallife.app.UserActivity;
 import com.some.locallife.data.LocalLife;
+import com.some.locallife.data.error.LocalException;
 import com.some.locallife.data.type.BigCategory;
 import com.some.locallife.data.type.Category;
 import com.some.locallife.data.type.City;
@@ -27,6 +30,7 @@ import com.some.locallife.data.type.Province;
 import com.some.locallife.data.type.Test;
 import com.some.locallife.util.TaskManager.DoTask;
 import com.some.locallife.util.TaskManager.SetData;
+import com.some.locallife.util.Logcat;
 import com.some.locallife.util.Util;
 import com.some.locallife.util.TaskManager.BaseDataTask;
 
@@ -49,6 +53,7 @@ import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -122,11 +127,19 @@ public class MainActivity extends Activity {
 			MainActivity.this.refreshTitle();
 		}};
 
+	private String mUser;
+
 	private void refreshTitle() {
 		this.mApp.setCityId(this.mCityId);
 		this.mApp.setCityName(this.mCity);
 		TextView tv = (TextView) this.findViewById(R.id.titleName);
-		String title = this.getResources().getString(R.string.main_activity_title) + "-" + this.mCity;
+		String title;
+		if(this.mUser == null) {
+			title = this.getResources().getString(R.string.main_activity_title) + "-" + this.mCity;
+		} else {
+			title = this.getResources().getString(R.string.main_activity_title) +
+					"-" + this.mCity + "          " + this.getString(R.string.title_user_text) + this.mUser;
+		}
 		tv.setText(title);
 	}
 
@@ -187,7 +200,12 @@ public class MainActivity extends Activity {
 								MainActivity.this.mHandler.obtainMessage(MyHandler.MSG_SHOW_PROGRESS_DLG));
 						String provinceId = MainActivity.this.getProvinceId();
 						try {
-							return MainActivity.this.mApp.getLocalLife().getCitys(provinceId);
+							try {
+								return MainActivity.this.mApp.getLocalLife().getCitys(provinceId);
+							} catch (LocalException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -222,7 +240,12 @@ public class MainActivity extends Activity {
 								MainActivity.this.mHandler.obtainMessage(MyHandler.MSG_SHOW_PROGRESS_DLG));
 						String cityId = MainActivity.this.mCityId;
 						try {
-							return MainActivity.this.mApp.getLocalLife().getDistricts(cityId);
+							try {
+								return MainActivity.this.mApp.getLocalLife().getDistricts(cityId);
+							} catch (LocalException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -264,18 +287,21 @@ public class MainActivity extends Activity {
 		R.drawable.grid2,
 		//R.drawable.grid3,
 		R.drawable.grid4,
-		R.drawable.grid5
+		R.drawable.grid5,
+		R.drawable.grid7
 	};
 	public final static int GRID_DISTANCE_SHOP = 0;
 	public final static int GRID_LOCAL_SHOP = 1;
 	public final static int GRID_COUPON = 2;
 	public final static int GRID_GROUP_BUY = 3;
+	public final static int GRID_USER = 4;
 	int[] mGridNameId = {
 		R.string.grid1_text,
 		R.string.grid2_text,
 		//R.string.grid3_text,
 		R.string.grid4_text,
-		R.string.grid5_text
+		R.string.grid5_text,
+		R.string.grid7_text
 	};
 
 	private SearchLocationObserver mSearchLocationObserver = new SearchLocationObserver();
@@ -367,7 +393,6 @@ public class MainActivity extends Activity {
 	private void closeProgressDialog() {
 		if(this.mProgressDialog != null) {
 			this.mProgressDialog.dismiss();
-
 		}
 	}
 
@@ -394,7 +419,11 @@ public class MainActivity extends Activity {
 			TextView tv = (TextView) this.findViewById(R.id.titleName);
 			String city = "";
 			if (this.mCity != null) {
-				city = "-" + this.mCity;
+				if (this.mUser == null) {
+					city = "-" + this.mCity;
+				} else {
+					city = "-" + this.mCity + "          " + this.getString(R.string.title_user_text) + this.mUser;
+				}
 			}
 			String title = this.getResources().getString(R.string.main_activity_title) + city;
 			tv.setText(title);
@@ -531,6 +560,11 @@ public class MainActivity extends Activity {
 						Intent goupbuyIntent = new Intent(MainActivity.this, GroupBuyListActivity.class);
 						MainActivity.this.startActivity(goupbuyIntent);
 						break;
+					case MainActivity.GRID_USER:
+						//Toast.makeText(MainActivity.this, "用户中心还未完成", Toast.LENGTH_SHORT).show();
+						Intent userIntent = new Intent(MainActivity.this, UserActivity.class);
+						MainActivity.this.startActivity(userIntent);
+						break;
 
 					}
 				}
@@ -583,8 +617,11 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         //state = this.STATE_TEST;
         state = this.STATE_GRID;
-        setContentView(R.layout.activity_main);
         this.mApp = (LocalLifeApplication) this.getApplication();
+        this.mApp.checkLoginState(this);
+        this.mUser = this.mApp.getUser();
+        setContentView(R.layout.activity_main);
+
         this.mCity = this.mApp.getCityName();
         Util.log("===city:"+this.mCity);
         this.mCityId = this.mApp.getCityId();
@@ -721,6 +758,12 @@ public class MainActivity extends Activity {
     	return this.mCitys;
     }
 
+    private void sendLogcat(boolean useEmail) {
+    	Intent intent = new Intent(this, Logcat.class);
+    	intent.putExtra(Logcat.EXTRA_USE_EMAIL, useEmail);
+    	this.startActivity(intent);
+    }
+
     @Override
     public Object onRetainNonConfigurationInstance() {
     	return this.mDataHolder;
@@ -797,6 +840,13 @@ public class MainActivity extends Activity {
     public void onPause() {
     	super.onPause();
     	((LocalLifeApplication)this.getApplication()).removeLocationUpdates(this.mSearchLocationObserver);
+    	this.cancelTask();
+    }
+
+    private void cancelTask() {
+    	this.mProvincesTask.cancel(true);
+    	this.mCitysTask.cancel(true);
+    	this.mDistrictsTask.cancel(true);
     }
 
     private void requestLocation() {
@@ -816,7 +866,12 @@ public class MainActivity extends Activity {
     	Group<BigCategory> mGroupBC = null;
     	try {
     		Util.testGetData("Api getTest");
-			this.mLocalLife.getTest();
+			try {
+				this.mLocalLife.getTest();
+			} catch (LocalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Util.ok();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -834,7 +889,12 @@ public class MainActivity extends Activity {
 
     	try {
     		Util.testGetData("Api getBigCategory");
-			mGroupBC = this.mLocalLife.getBigCategory();
+			try {
+				mGroupBC = this.mLocalLife.getBigCategory();
+			} catch (LocalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Util.log("data:"+mGroupBC);
 			for (int i = 0; i < mGroupBC.size(); i++) {
 				android.util.Log.i("MQ","====="+mGroupBC.get(i).getName());
@@ -857,7 +917,12 @@ public class MainActivity extends Activity {
     	try {
     		Util.testGetData("Api getCategory");
     		BigCategory bc = mGroupBC.get(0);
-			mGroupC = this.mLocalLife.getCategory(bc.getId());
+			try {
+				mGroupC = this.mLocalLife.getCategory(bc.getId());
+			} catch (LocalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Util.ok();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -874,7 +939,12 @@ public class MainActivity extends Activity {
 		}
 
     	try {
-			this.mLocalLife.getShops("0");
+			try {
+				this.mLocalLife.getShops("0");
+			} catch (LocalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -893,6 +963,31 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch(item.getItemId()) {
+    	case R.id.menu_settings:
+    		return true;
+    	case R.id.send_logcat_by_email:
+    		this.sendLogcat(true);
+    		return true;
+    	case R.id.login:
+    		this.startLogin();
+    		return true;
+    	case R.id.clear_login:
+    		this.mApp.getLocalLife().clearCredentials();
+    		return true;
+
+    	}
+		return super.onOptionsItemSelected(item);
+
+    }
+
+    private void startLogin() {
+    	Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+    	this.startActivity(intent);
+
+    }
 
     private static class DataHolder {
     	Group<Province> mProvinces;
@@ -911,7 +1006,12 @@ public class MainActivity extends Activity {
 		public LocalType doTask() {
 			// TODO Auto-generated method stub
 			try {
-				return this.mApi.getProvinces();
+				try {
+					return this.mApi.getProvinces();
+				} catch (LocalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

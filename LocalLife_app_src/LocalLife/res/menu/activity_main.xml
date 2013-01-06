@@ -2,4 +2,7 @@
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:orderInCategory="100" />
+    <item android:id="@+id/send_logcat_by_email" android:title="@string/menu_title_send_by_email"/>
+    <item android:id="@+id/login" android:title="@string/menu_login_title"></item>
+    <item android:id="@+id/clear_login" android:title="@string/menu_clear_login_title"></item>
 </menu>

@@ -3,8 +3,10 @@ package com.some.locallife.app;
 import java.util.Observer;
 import java.util.prefs.Preferences;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
@@ -50,6 +52,8 @@ public class LocalLifeApplication extends Application {
 		loadLocalLife();
 
 		this.mTaskManager = new TaskManager();
+
+
 
 	}
 
@@ -124,6 +128,24 @@ public class LocalLifeApplication extends Application {
 			return false;
 		}
 		return true;
+	}
+
+	public void checkLoginState(Activity activity) {
+		boolean autoLogin = MyPreferences.getAutoLogin(mPrefs);
+		if(autoLogin) {
+			String user = this.getUser();
+			if(user == null) {
+				Intent intent = new Intent(activity, LoginActivity.class);
+				activity.startActivity(intent);
+			}
+			String password = this.mPrefs.getString(MyPreferences.PREFERENCE_PASSWORD, null);
+			this.mLocalLife.setCredentials(user, password);
+		}
+
+	}
+
+	public String getUser() {
+		return this.mPrefs.getString(MyPreferences.PREFERENCE_USER, null);
 	}
 
 	private class TaskHandler extends Handler {
